@@ -1,0 +1,44 @@
+﻿body {
+  background: #f8fbff;
+  color: #0f172a;
+}
+
+.sensor-card {
+  background: #ffffff;
+  border-radius: 1rem;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.sensor-label {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+}
+
+.sensor-value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.address-box {
+  min-height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.map-card {
+  background: #eef5ff;
+  border-radius: 1rem;
+  padding: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .sensor-card {
+    padding: 1rem;
+  }
+}
