@@ -1,0 +1,32 @@
+    html,
+    body {
+        margin: 0;
+        height: 100%;
+        background: #0e0e0e;
+    }
+
+    #app {
+        height: 100%;
+    }
+
+    .card {
+        margin: 12px;
+        background: #1c1c1c;
+        color: #fff;
+        border-radius: 12px;
+        padding: 12px;
+    }
+
+    .card-header {
+        font-weight: bold;
+        color: #ffffff;
+    }
+
+    .navbar {
+        background: #121212;
+    }
+
+    #orientation {
+        font-size: 18px;
+        font-weight: bold;
+    }

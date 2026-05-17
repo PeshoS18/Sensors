@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Sensor GPS App</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/framework7/framework7-bundle.min.css">
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+            background: #0e0e0e;
+        }
+
+        #app {
+            height: 100%;
+        }
+
+        .card {
+            margin: 12px;
+            background: #1c1c1c;
+            color: #fff;
+            border-radius: 12px;
+            padding: 12px;
+        }
+
+        .page-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .card {
+            width: 90%;
+            max-width: 400px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <div class="view view-main view-init">
+
+            <div class="page">
+
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="title">Sensor Dashboard</div>
+                    </div>
+                </div>
+
+                <div class="page-content">
+
+                    <div class="card">
+                        <h3>Ориентация</h3>
+                        <div id="orientation">--</div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Акселерометър</h3>
+                        X: <span id="ax">0</span><br>
+                        Y: <span id="ay">0</span><br>
+                        Z: <span id="az">0</span>
+                    </div>
+
+                    <div class="card">
+                        <h3>GPS</h3>
+                        Lat: <span id="lat">--</span><br>
+                        Lng: <span id="lng">--</span><br>
+                        Speed: <span id="speed">--</span><br>
+                        Alt: <span id="alt">--</span>
+                    </div>
+
+                    <div class="card">
+                        <h3>Адрес</h3>
+                        <div id="address">--</div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Карта</h3>
+                        <img id="map" style="width:100%; border-radius:10px;" />
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/framework7/framework7-bundle.min.js"></script>
+
+    <!-- твоят logic файл -->
+    <script src="components/loader.js"></script>
+
+</body>
+
+</html>
