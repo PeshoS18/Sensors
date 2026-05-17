@@ -59,7 +59,7 @@ function updateGPS() {
         { enableHighAccuracy: true });
 }
 
-// ---------- 🧠 NEW: time throttle ----------
+// ---------- time throttle ----------
 function shouldUpdateGeo() {
     const now = Date.now();
 
@@ -70,7 +70,7 @@ function shouldUpdateGeo() {
     return true;
 }
 
-// ---------- 🧠 NEW: movement filter ----------
+// ----------  movement filter ----------
 function hasMoved(lat, lng) {
     if (!lastLat || !lastLng) return true;
 
