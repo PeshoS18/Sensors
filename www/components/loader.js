@@ -15,7 +15,6 @@ function detectOrientation(ax, ay, az) {
     return "Наклонен 📱";
 }
 
-
 window.addEventListener("devicemotion", function (event) {
     let acc = event.accelerationIncludingGravity;
     if (!acc) return;
@@ -38,22 +37,31 @@ function updateGPS() {
     }
 
     navigator.geolocation.watchPosition(async (pos) => {
+
         const { latitude, longitude, altitude, speed } = pos.coords;
 
-        lastLat = latitude;
-        lastLng = longitude;
+        document.getElementById("lat").innerText =
+            latitude.toFixed(6);
 
-        document.getElementById("lat").innerText = latitude.toFixed(6);
-        document.getElementById("lng").innerText = longitude.toFixed(6);
-        document.getElementById("alt").innerText = altitude ?? "--";
-        document.getElementById("speed").innerText = speed ?? "--";
+        document.getElementById("lng").innerText =
+            longitude.toFixed(6);
+
+        document.getElementById("alt").innerText =
+            altitude ?? "--";
+
+        document.getElementById("speed").innerText =
+            speed ?? "--";
 
         updateMap(latitude, longitude);
 
-        // ✅ FIX: само ако има реално движение + лимит по време
+        // ✅ ПЪРВО проверяваме
         if (shouldUpdateGeo() && hasMoved(latitude, longitude)) {
             reverseGeocode(latitude, longitude);
         }
+
+        // ✅ ЧАК СЛЕД ТОВА обновяваме координатите
+        lastLat = latitude;
+        lastLng = longitude;
 
     }, err => console.log("GPS error:", err),
         { enableHighAccuracy: true });
@@ -70,9 +78,13 @@ function shouldUpdateGeo() {
     return true;
 }
 
-// ----------  movement filter ----------
+// ---------- movement filter ----------
 function hasMoved(lat, lng) {
-    if (!lastLat || !lastLng) return true;
+
+    // първо стартиране
+    if (lastLat === null || lastLng === null) {
+        return true;
+    }
 
     const dx = Math.abs(lat - lastLat);
     const dy = Math.abs(lng - lastLng);
@@ -83,38 +95,54 @@ function hasMoved(lat, lng) {
 
 // ---------- MAP ----------
 function updateMap(lat, lng) {
+
     const key = "YOUR_GOOGLE_MAPS_API_KEY";
 
     const url =
         `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=15&size=600x300&markers=color:red|${lat},${lng}&key=${key}`;
 
     const map = document.getElementById("map");
-    if (map) map.src = url;
+
+    if (map) {
+        map.src = url;
+    }
 }
 
 // ---------- REVERSE GEOCODING ----------
 async function reverseGeocode(lat, lng) {
+
     try {
+
         const res = await fetch(
             `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
         );
 
+        if (!res.ok) {
+            throw new Error("HTTP " + res.status);
+        }
 
         const data = await res.json();
 
         const el = document.getElementById("address");
+
         if (el) {
-            el.innerText = data.display_name || "Не е намерен адрес";
+            el.innerText =
+                data.display_name || "Не е намерен адрес";
         }
 
     } catch (e) {
+
         console.log("GEOCODE ERROR:", e);
 
         const el = document.getElementById("address");
-        if (el) el.innerText = "Грешка при адрес";
+
+        if (el) {
+            el.innerText = "Грешка при адрес";
+        }
     }
 }
 
+// ---------- START ----------
 document.addEventListener("DOMContentLoaded", function () {
     updateGPS();
 });
